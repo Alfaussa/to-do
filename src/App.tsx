@@ -13,14 +13,17 @@ const Layout = styled.div`
 
 const Wrapper = styled.div`
 display:flex;`
-const Title = styled.h1`
 
+
+const Title = styled.h1`
 color: #D5B9B3;
-height:62px;
+height: 30px;
 display: flex;
 justify-items:center;
 text-decoration:none;
+font-size:70px;
 font-family: "Arial Narrow", monospace;
+
 
 `;
 

@@ -3,14 +3,21 @@ import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import TextButton from "./components/textButton";
 import Spacer from "./components/Spacer";
-import Checkbox from "./components/CheckBox";
+import Checkbox from "./components/checkBox";
+
 
 const Container = styled.div`
   
     display: flex;
-    
     flex-direction: column;
     align-items: stretch;
+    text-decoration:none;
+    font-family: "Arial Narrow", monospace;
+    color:#444242;
+    border: 1px; 
+    border-style:solid; 
+    border-color:#c6c2c2; 
+
 `
 
 
@@ -18,25 +25,51 @@ const List = styled.div`
     background-color: #fff;
     border-radius: 4px;
     width: 100%;
-    max-width: 430px;
+   min-width: 400px;
     flex-direction: column;
 
 `;
 
 const ListItem = styled.label`
-    margin-bottom: 20px;
+    margin: 10px;
     align-items: center;
     display: flex;
-    padding: 4px 0;
-`
+    padding: 4px; 
+    
+`;
 
+
+
+const Item = styled.div`
+    border: 1px; 
+    border-style:solid; 
+    border-color:#c6c2c2; 
+
+    
+`;
+const Border = styled.div`
+    border: 1px; 
+    border-style:solid; 
+    border-color:#c6c2c2; 
+`;
 const Input = styled.input`
     border: none;
     padding: 20px 24px;
+    font-size: 15px;
+    font-style: italic;
+    outline:none;
 
-
-
+`;
+const ButtonSection = styled.div`
+display: flex;
+justify-content: space-between;
+    padding: 10px;
+    border: 1px; 
+    border-style:solid; 
+    border-color:#c6c2c2; 
 `
+
+
 type Props = {};
 
 
@@ -75,15 +108,8 @@ const Listscreen: React.FC<Props> = () => {
 
     };
 
-    //*********** */
+    //*Buttons*/
 
-    
-    
-
-
-
-    const handleClearClick = () =>
-        setTasks(filteredTasks => tasks.filter((task => !task.isComplete)));
 
         // const handleTaskAllClick = () =>
         
@@ -92,48 +118,57 @@ const Listscreen: React.FC<Props> = () => {
     const handleTaskActiveClick = () =>
         setTasks(tasks => tasks.filter((task => !task.isComplete)));
     const handleTaskCompletedClick = () =>
-        setTasks(filteredTasks => tasks.filter((task => task.isComplete)));
+        setTasks(tasks => tasks.filter((task => task.isComplete)));
 
-
+    const handleClearClick = () =>
+        setTasks(tasks => tasks.filter((task => !task.isComplete)));
 
 
     return (
         <Container>
     <div> 
     <List> 
-        <div>
-            {tasks.map((task, index) => 
-            <ListItem key={task.id}>
-             <Checkbox 
-            checked={task.isComplete} 
-            onChange={handleCompleteChange(task)}
-            />
-            <Spacer width={24}></Spacer>
-          {task.label}
-            
-            </ListItem>)}
-        
-        
-        </div>
-        <Input 
+   <Border>
+    <Input 
         placeholder = "What needs to be done?"
         value={newTaskLabel} 
         onChange={handleNewTaskLabelChange} 
         onKeyPress={handleNewTaskKeyPress}
         />
-    <div>
-    
+    </Border>
+        <div>
+            {tasks.map((task, index) => 
+             <Item>
+            <ListItem key={task.id}>
+               
+             <Checkbox 
+            checked={task.isComplete} 
+            onChange={handleCompleteChange(task)}
+            />
+            <Spacer width={24}></Spacer>
+         
+                
+         {task.label} 
 
+            </ListItem>
+            
+            </Item>)}
+        </div>
+       
+        <ButtonSection>
+   
+    
+   
     <TextButton onClick={handleClearClick}>Clear completed</TextButton>
 
 {/* 
     <button onClick={handleTaskAllClick}>All</button> */}
-    <button onClick={handleTaskActiveClick}>Active</button>
+    <TextButton onClick={handleTaskActiveClick}>Active</TextButton>
     
-    <button onClick={handleTaskCompletedClick}>completed</button>
+    <TextButton onClick={handleTaskCompletedClick}>Completed</TextButton>
     
-    </div>
-        
+    
+    </ButtonSection>
 </List>
     </div>
     </Container>

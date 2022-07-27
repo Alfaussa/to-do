@@ -5,7 +5,6 @@ import styled, { StyledComponent } from "styled-components";
   display: inline-block;
   vertical-align: middle;
   `
-
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   // Hide checkbox visually but remain accessible to screen readers.
   // Source: https://polished.js.org/docs/#hidevisually
@@ -19,16 +18,24 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   position: absolute;
   white-space: nowrap;
   width: 1px;
+  
 `
+
+
 
   const StyledCheckbox = styled.div<{checked:boolean;}>`
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: ${props => props.checked ? 'salmon' : 'papayawhip'};
-  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+  background: ${props => props.checked ? '#71B16D' : 'white'};
+  border: 1px solid #c6c2c2;
+  border-radius: 25px;
   transition: all 150ms;
+  text-decoration: ${props => props.checked ? 'line-through' : "none"};
+
 `;
+
+
 type Props = ComponentProps<StyledComponent<'input', any, {}>> & {
     checked: boolean;
 
@@ -44,3 +51,4 @@ const Checkbox: React.FC<Props> = ({ checked, ...props }) => (
 
 
 export default Checkbox;
+
