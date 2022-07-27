@@ -1,8 +1,7 @@
 {
   "name": "to-do",
   "version": "0.1.0",
-  "homepage": "https://Alfaussa.github.io/to-do"
-  ,
+  "homepage": "https://Alfaussa.github.io/to-do",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",

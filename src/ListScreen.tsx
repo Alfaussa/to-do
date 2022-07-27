@@ -75,33 +75,33 @@ type Props = {};
 
 
 type Task = {
-    id:string,
-    label:string,
-    isComplete:boolean,
+    id: string,
+    label: string,
+    isComplete: boolean,
 }
 
 
 const Listscreen: React.FC<Props> = () => {
 
     const [tasks, setTasks] = useState<Task[]>([]);
-   
+
     const [newTaskLabel, setNewTaskLabel] = useState('');
 
-    const handleNewTaskLabelChange = (e: ChangeEvent <HTMLInputElement>) => setNewTaskLabel(e.target.value);
-    const handleNewTaskKeyPress = (e: KeyboardEvent<HTMLInputElement>) => { 
-        if(e.key === 'Enter' && newTaskLabel !== '') {
-        setTasks((tasks) => [
-        ...tasks, 
-        { id: nanoid(), label: newTaskLabel, isComplete: false},
-    ]);
-        setNewTaskLabel('');
+    const handleNewTaskLabelChange = (e: ChangeEvent<HTMLInputElement>) => setNewTaskLabel(e.target.value);
+    const handleNewTaskKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && newTaskLabel !== '') {
+            setTasks((tasks) => [
+                ...tasks,
+                { id: nanoid(), label: newTaskLabel, isComplete: false },
+            ]);
+            setNewTaskLabel('');
         }
     };
 
     const handleCompleteChange = (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
-        setTasks(tasks => tasks.map(task =>{
-            if(task.id === handledTask.id) 
-            return {...task, isComplete: e.target.checked}
+        setTasks(tasks => tasks.map(task => {
+            if (task.id === handledTask.id)
+                return { ...task, isComplete: e.target.checked }
             return task;
         })
         );
@@ -111,67 +111,66 @@ const Listscreen: React.FC<Props> = () => {
     //*Buttons*/
 
 
-        // const handleTaskAllClick = () =>
-        
-        // setTasks(tasks => tasks.filter((task => !task.isComplete)));
-    
+    // const handleTaskAllClick = () =>
+
+    // setTasks(tasks => tasks.filter((task => !task.isComplete)));
+
     const handleTaskActiveClick = () =>
         setTasks(tasks => tasks.filter((task => !task.isComplete)));
     const handleTaskCompletedClick = () =>
         setTasks(tasks => tasks.filter((task => task.isComplete)));
-
     const handleClearClick = () =>
         setTasks(tasks => tasks.filter((task => !task.isComplete)));
 
 
     return (
         <Container>
-    <div> 
-    <List> 
-   <Border>
-    <Input 
-        placeholder = "What needs to be done?"
-        value={newTaskLabel} 
-        onChange={handleNewTaskLabelChange} 
-        onKeyPress={handleNewTaskKeyPress}
-        />
-    </Border>
-        <div>
-            {tasks.map((task, index) => 
-             <Item>
-            <ListItem key={task.id}>
-               
-             <Checkbox 
-            checked={task.isComplete} 
-            onChange={handleCompleteChange(task)}
-            />
-            <Spacer width={24}></Spacer>
-         
-                
-         {task.label} 
+            <div>
+                <List>
+                    <Border>
+                        <Input
+                            placeholder="What needs to be done?"
+                            value={newTaskLabel}
+                            onChange={handleNewTaskLabelChange}
+                            onKeyPress={handleNewTaskKeyPress}
+                        />
+                    </Border>
+                    <div>
+                        {tasks.map((task, index) =>
+                            <Item>
+                                <ListItem data-testid='newTask' key={task.id}>
 
-            </ListItem>
-            
-            </Item>)}
-        </div>
-       
-        <ButtonSection>
-   
-    
-   
-    <TextButton onClick={handleClearClick}>Clear completed</TextButton>
+                                    <Checkbox
+                                        checked={task.isComplete}
+                                        onChange={handleCompleteChange(task)}
+                                    />
+                                    <Spacer width={24}></Spacer>
 
-{/* 
+
+                                    {task.label}
+
+                                </ListItem>
+
+                            </Item>)}
+                    </div>
+
+                    <ButtonSection>
+
+
+
+                        <TextButton data-testid="button" onClick={handleClearClick}>Clear completed</TextButton>
+
+                        {/* 
     <button onClick={handleTaskAllClick}>All</button> */}
-    <TextButton onClick={handleTaskActiveClick}>Active</TextButton>
-    
-    <TextButton onClick={handleTaskCompletedClick}>Completed</TextButton>
-    
-    
-    </ButtonSection>
-</List>
-    </div>
-    </Container>
+                        <TextButton onClick={handleTaskActiveClick}>Active</TextButton>
+
+                        <TextButton onClick={handleTaskCompletedClick}>Completed</TextButton>
+
+
+                    </ButtonSection>
+                </List>
+            </div>
+        </Container>
     );
 };
 
